@@ -9,12 +9,12 @@ class DummyFighter:
         self.draw_weapon_key = 'x' # Set what key is mapped to draw your weapon
         self.combat_iterations = 30 # set after how many attack sequences you want the character to sitdown and regain stamina reserves
         self.sitdown_timer = 120 # set how long you want your character to sitdown to replenish said reserves
+        self.attack_charge_time = .6 # Set how long it takes to charge the attack, if it varies for the different weapons use the time it takes to fully charge yours
+        self.attack_interval = 1 # Set how big of an interval has to be between each attack, can be taken as swing animation timer, if it varies for the different weapons use the time it take to take another swing with yours
 
 
         # !!!! DO NOT EDIT ANYTHING UNDER THIS LINE IF YOU DO NOT PERFECTLY KNOW HOW EVERYTHING WORKS, ONLY CHANGE THE VARIABLES ABOVE TO ALTER THE BEHAVIOR !!! #
 
-        self.__attack_charge_time = .6
-        self.__attack_interval = 1
         self.__screen_x_res = 0
         self.__screen_y_res = 0
 
@@ -31,7 +31,7 @@ class DummyFighter:
             print(f'--Starting combat sequence, iteration {iteration}--')
             for attack in self.attack_sequence:
                 self.__doAttack(attack)
-                time.sleep(self.__attack_interval)
+                time.sleep(self.attack_interval)
             print(f'!-- Attack sequnce is done, waiting for {self.sequence_downtime} seconds. It is safe to exit the macro with CTRL+C --!')
             time.sleep(self.sequence_downtime)
             iteration += 1
@@ -61,7 +61,7 @@ class DummyFighter:
         pyautogui.mouseDown()
         win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, int(x_pos/self.__screen_x_res*65535), int(y_pos/self.__screen_y_res*65535), 0, 0)
         if(self.__rngChargedHit()):
-            time.sleep(self.__attack_charge_time)
+            time.sleep(self.attack_charge_time)
         pyautogui.mouseUp()
 
     def __rngChargedHit(self, p=.5):

@@ -15,8 +15,6 @@ class DummyFighter:
 
         self.__attack_charge_time = .6
         self.__attack_interval = 1
-        self.__base_x_pos = 0
-        self.__base_y_pos = 0
         self.__screen_x_res = 0
         self.__screen_y_res = 0
 
@@ -25,7 +23,6 @@ class DummyFighter:
         self.startFighting();
 
     def startFighting(self):
-        self.__getBaseMousePosition()
         self.__getScreenResolution()
 
         iteration = 1
@@ -41,12 +38,6 @@ class DummyFighter:
         else:
             self.__doSitdown()
             return False
-
-    def __getBaseMousePosition(self):
-        print('--Setting up the start position--');
-        x,y = pyautogui.position()
-        self.__base_x_pos = x
-        self.__base_y_pos = y
 
     def __getScreenResolution(self):
         print('--Getting the screen resolution--');
@@ -68,7 +59,6 @@ class DummyFighter:
                 x_pos = 1
                 
         pyautogui.mouseDown()
-        win32api.SetCursorPos((self.__base_x_pos + x_pos, self.__base_y_pos + y_pos))
         win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, int(x_pos/self.__screen_x_res*65535), int(y_pos/self.__screen_y_res*65535), 0, 0)
         if(self.__rngChargedHit()):
             time.sleep(self.__attack_charge_time)

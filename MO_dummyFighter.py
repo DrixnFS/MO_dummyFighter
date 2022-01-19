@@ -1,5 +1,6 @@
-import time, pyautogui, random
+import time, pyautogui, random, threading, os
 import win32api, win32con
+from pynput.keyboard import Key, Listener
 
 class DummyFighter:
     def __init__(self):
@@ -18,9 +19,22 @@ class DummyFighter:
         self.__screen_x_res = 0
         self.__screen_y_res = 0
 
+        pb = threading.Thread(target=self.__panicButton)
+        pb.start()
+
         print('!--- You have 10 seconds to activate Mortal Online 2 window and have your weapon out ---!')
         time.sleep(10);
         self.startFighting();
+
+    def __panicButton(self):
+        def on_press(key):
+            if(key == Key.f5):
+                print('--Stopping the script based on user input--')
+                os._exit(0)
+
+        # Collect events until released
+        with Listener(on_press=on_press,) as listener:
+            listener.join()
 
     def startFighting(self):
         self.__getScreenResolution()

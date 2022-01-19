@@ -5,7 +5,7 @@ from pynput.keyboard import Key, Listener
 class DummyFighter:
     def __init__(self):
         self.attack_sequence = ['up', 'up', 'left', 'down', 'right', 'down', 'left', 'down', 'up', 'right'] # Attack sequence in which orders attacks are going to be executed, feel free to change it
-        self.sequence_downtime = 5 # set the time in seconds you want as downtime to turn off the bot and the downtime between attack sequences
+        self.sequence_downtime = 1 # set the time in seconds you want as downtime to turn off the bot and the downtime between attack sequences
         self.sitdown_key = ')' # Set what key the sitdown is mapped to
         self.draw_weapon_key = 'x' # Set what key is mapped to draw your weapon
         self.combat_iterations = 30 # set after how many attack sequences you want the character to sitdown and regain stamina reserves
